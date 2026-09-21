@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="default">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="PS5 Pro Console Interface - A desktop web application replicating the PlayStation 5 Pro user interface experience.">
+  <meta name="theme-color" content="#000000">
+  <meta name="color-scheme" content="dark">
+  <meta name="application-name" content="PS5 Pro">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="mobile-web-app-capable" content="yes">
+
+  <title>PS5 Pro</title>
+
+  <link rel="icon" type="image/x-icon" href="./public/favicon.ico">
+  <link rel="manifest" href="./public/manifest.json">
+  <link rel="preload" as="font" type="font/woff2" href="./assets/fonts/ps5-sans.woff2" crossorigin>
+
+  <!-- Core Styles -->
+  <link rel="stylesheet" href="./src/styles/reset.css">
+  <link rel="stylesheet" href="./src/styles/variables.css">
+  <link rel="stylesheet" href="./src/styles/layout.css">
+  <link rel="stylesheet" href="./src/styles/animations.css">
+  <link rel="stylesheet" href="./src/styles/typography.css">
+  <link rel="stylesheet" href="./src/styles/components.css">
+
+  <!-- Screen Styles -->
+  <link rel="stylesheet" href="./src/styles/boot-screen.css">
+  <link rel="stylesheet" href="./src/styles/home-screen.css">
+  <link rel="stylesheet" href="./src/styles/control-center.css">
+  <link rel="stylesheet" href="./src/styles/game-library.css">
+  <link rel="stylesheet" href="./src/styles/ps-store.css">
+  <link rel="stylesheet" href="./src/styles/game-details.css">
+  <link rel="stylesheet" href="./src/styles/settings-screen.css">
+  <link rel="stylesheet" href="./src/styles/profile-menu.css">
+  <link rel="stylesheet" href="./src/styles/dialogs.css">
+</head>
+<body>
+  <div id="app" class="app" data-app-root="true" data-theme="default" data-platform="web">
+
+    <!-- ==================== BOOT SCREEN ==================== -->
+    <section id="boot-screen" class="boot-screen is-active" data-screen="boot" data-role="boot-screen" aria-hidden="false">
+      <div class="boot-screen__inner" data-section="boot-content">
+        <div class="boot-screen__logo" data-role="boot-logo" aria-hidden="true"></div>
+        <h1 class="boot-screen__title" data-role="boot-title">PS5 Pro</h1>
+        <p class="boot-screen__message" data-role="boot-message" aria-live="polite"></p>
+        <div class="boot-screen__progress" data-role="boot-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div class="boot-screen__progress-bar" data-role="boot-progress-bar"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== STARTUP ANIMATION LAYER ==================== -->
+    <section id="startup-layer" class="startup-layer is-hidden" data-screen="startup" data-role="startup-layer" aria-hidden="true">
+      <div class="startup-layer__visual" data-role="startup-visual" data-background="startup-animation"></div>
+      <div class="startup-layer__glow" data-role="startup-glow" aria-hidden="true"></div>
+    </section>
+
+    <!-- ==================== MAIN INTERFACE ==================== -->
+    <div id="main-interface" class="main-interface is-hidden" data-screen="main" data-role="main-interface" aria-hidden="true">
+
+      <!-- ---------- TOP BAR ---------- -->
+      <header id="top-bar" class="top-bar" data-section="top-bar" data-role="top-bar">
+        <div class="top-bar__left" data-section="top-bar-left">
+          <button id="nav-toggle" class="top-bar__button" data-action="toggle-navigation" data-role="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">
+            <span class="icon" data-icon="menu" aria-hidden="true"></span>
+          </button>
+          <div class="top-bar__branding" data-role="top-bar-branding">
+            <span class="top-bar__branding-logo" data-icon="ps-logo" data-asset="branding" aria-hidden="true"></span>
+          </div>
+        </div>
+
+        <div class="top-bar__center" data-section="top-bar-center">
+          <nav id="breadcrumb" class="breadcrumb" data-role="breadcrumb" aria-label="Breadcrumb"></nav>
+        </div>
+
+        <div class="top-bar__right" data-section="top-bar-right">
+          <button id="search-trigger" class="top-bar__button" data-action="open-search" data-role="search-trigger" type="button" aria-label="Search">
+            <span class="icon" data-icon="search" aria-hidden="true"></span>
+          </button>
+          <button id="notifications-trigger" class="top-bar__button" data-action="open-notifications" data-role="notifications-trigger" type="button" aria-label="Notifications" aria-haspopup="true" aria-expanded="false">
+            <span class="icon" data-icon="bell" aria-hidden="true"></span>
+            <span class="badge is-hidden" data-role="notifications-badge" aria-hidden="true"></span>
+          </button>
+          <button id="profile-trigger" class="top-bar__button top-bar__button--avatar" data-action="open-profile-menu" data-role="profile-trigger" type="button" aria-label="Profile menu" aria-haspopup="true" aria-expanded="false">
+            <span class="avatar avatar--sm" data-role="avatar-thumbnail" data-avatar="current-user" aria-hidden="true"></span>
+          </button>
+        </div>
+      </header>
+
+      <!-- ---------- MAIN NAVIGATION ---------- -->
+      <nav id="navigation" class="navigation is-hidden" data-section="navigation" data-panel="navigation" data-role="navigation" aria-label="Main navigation" aria-hidden="true">
+        <ul class="navigation__list" data-role="navigation-list" role="list">
+          <li class="navigation__item" data-nav-item="home">
+            <button class="navigation__link" data-action="navigate" data-view="home" type="button" aria-label="Home">
+              <span class="icon" data-icon="home" aria-hidden="true"></span>
+              <span class="navigation__label" data-role="nav-label">Home</span>
+            </button>
+          </li>
+          <li class="navigation__item" data-nav-item="library">
+            <button class="navigation__link" data-action="navigate" data-view="library" type="button" aria-label="Game Library">
+              <span class="icon" data-icon="library" aria-hidden="true"></span>
+              <span class="navigation__label" data-role="nav-label">Library</span>
+            </button>
+          </li>
+          <li class="navigation__item" data-nav-item="store">
+            <button class="navigation__link" data-action="navigate" data-view="store" type="button" aria-label="PlayStation Store">
+              <span class="icon" data-icon="store" aria-hidden="true"></span>
+              <span class="navigation__label" data-role="nav-label">Store</span>
+            </button>
+          </li>
+          <li class="navigation__item" data-nav-item="media">
+            <button class="navigation__link" data-action="navigate" data-view="media" type="button" aria-label="Media">
+              <span class="icon" data-icon="media" aria-hidden="true"></span>
+              <span class="navigation__label" data-role="nav-label">Media</span>
+            </button>
+          </li>
+          <li class="navigation__item" data-nav-item="settings">
+            <button class="navigation__link" data-action="navigate" data-view="settings" type="button" aria-label="Settings">
+              <span class="icon" data-icon="settings" aria-hidden="true"></span>
+              <span class="navigation__label" data-role="nav-label">Settings</span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- ---------- MAIN CONTENT ---------- -->
+      <main id="content" class="content" data-section="content" data-role="content" tabindex="-1">
+
+        <!-- Home Screen -->
+        <section id="home-screen" class="screen home-screen is-active" data-screen="home" data-view="home" aria-labelledby="home-screen-title" aria-hidden="false">
+          <h1 id="home-screen-title" class="sr-only">Home</h1>
+
+          <div class="home-screen__hero" data-section="home-hero" data-role="home-hero">
+            <div class="home-screen__hero-background" data-background="home-hero" aria-hidden="true"></div>
+            <div class="home-screen__hero-content" data-role="home-hero-content">
+              <div id="home-hero-slot" class="home-screen__hero-slot" data-container="hero-slot"></div>
+            </div>
+          </div>
+
+          <div class="home-screen__row" data-section="home-row-games">
+            <header class="home-screen__row-header">
+              <h2 class="home-screen__row-title" data-role="row-title">Recently Played</h2>
+              <div class="home-screen__row-actions" data-role="row-actions"></div>
+            </header>
+            <div id="home-row-games" class="game-row" data-container="home-games" data-view="row" data-source="games.json" role="list"></div>
+          </div>
+
+          <div class="home-screen__row" data-section="home-row-store">
+            <header class="home-screen__row-header">
+              <h2 class="home-screen__row-title" data-role="row-title">From PlayStation Store</h2>
+              <div class="home-screen__row-actions" data-role="row-actions"></div>
+            </header>
+            <div id="home-row-store" class="game-row" data-container="home-store" data-view="row" data-source="store.json" role="list"></div>
+          </div>
+
+          <div class="home-screen__row" data-section="home-row-media">
+            <header class="home-screen__row-header">
+              <h2 class="home-screen__row-title" data-role="row-title">Media</h2>
+              <div class="home-screen__row-actions" data-role="row-actions"></div>
+            </header>
+            <div id="home-row-media" class="game-row" data-container="home-media" data-view="row" role="list"></div>
+          </div>
+        </section>
+
+        <!-- Game Library Screen -->
+        <section id="game-library" class="screen game-library is-hidden" data-screen="library" data-view="library" aria-labelledby="game-library-title" aria-hidden="true">
+          <header class="screen__header">
+            <h1 id="game-library-title" class="screen__title">Game Library</h1>
+            <div class="screen__toolbar" data-role="library-toolbar">
+              <div class="filter-group" data-role="library-filters" role="group" aria-label="Library filters"></div>
+              <div class="sort-group" data-role="library-sort"></div>
+            </div>
+          </header>
+          <div id="game-library-grid" class="game-grid" data-container="library-grid" data-view="grid" data-source="games.json" role="list"></div>
+          <div id="game-library-empty" class="empty-state is-hidden" data-role="library-empty" aria-hidden="true"></div>
+        </section>
+
+        <!-- PS Store Screen -->
+        <section id="ps-store" class="screen ps-store is-hidden" data-screen="store" data-view="store" aria-labelledby="ps-store-title" aria-hidden="true">
+          <header class="screen__header">
+            <h1 id="ps-store-title" class="screen__title">PlayStation Store</h1>
+            <div class="screen__toolbar" data-role="store-toolbar">
+              <div class="filter-group" data-role="store-filters" role="group" aria-label="Store filters"></div>
+            </div>
+          </header>
+
+          <div class="ps-store__hero" data-section="store-hero" data-role="store-hero">
+            <div id="store-hero-slot" class="ps-store__hero-slot" data-container="store-hero-slot"></div>
+          </div>
+
+          <div class="ps-store__section" data-section="store-featured">
+            <h2 class="ps-store__section-title">Featured</h2>
+            <div id="store-featured" class="game-row" data-container="store-featured" data-view="row" data-source="store.json" role="list"></div>
+          </div>
+
+          <div class="ps-store__section" data-section="store-deals">
+            <h2 class="ps-store__section-title">Deals</h2>
+            <div id="store-deals" class="game-row" data-container="store-deals" data-view="row" data-source="store.json" role="list"></div>
+          </div>
+
+          <div class="ps-store__section" data-section="store-new">
+            <h2 class="ps-store__section-title">New Releases</h2>
+            <div id="store-new" class="game-grid" data-container="store-new" data-view="grid" data-source="store.json" role="list"></div>
+          </div>
+        </section>
+
+        <!-- Game Details Screen -->
+        <section id="game-details" class="screen game-details is-hidden" data-screen="details" data-view="details" aria-labelledby="game-details-title" aria-hidden="true">
+          <div class="game-details__backdrop" data-background="game-details-backdrop" aria-hidden="true"></div>
+
+          <button class="game-details__back" data-action="navigate-back" type="button" aria-label="Back">
+            <span class="icon" data-icon="arrow-back" aria-hidden="true"></span>
+          </button>
+
+          <div class="game-details__hero" data-section="details-hero">
+            <div id="game-details-banner" class="game-details__banner" data-container="details-banner" data-banner="current-game"></div>
+            <div class="game-details__identity" data-section="details-identity">
+              <span id="game-details-cover" class="game-details__cover" data-cover="current-game" aria-hidden="true"></span>
+              <div class="game-details__meta">
+                <h1 id="game-details-title" class="game-details__title" data-role="details-title">Game Title</h1>
+                <p class="game-details__publisher" data-role="details-publisher"></p>
+                <div class="game-details__stats" data-role="details-stats"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="game-details__actions" data-section="details-actions" role="group" aria-label="Game actions">
+            <button id="game-details-play" class="button button--primary" data-action="launch-game" data-role="details-play" type="button">
+              <span class="icon" data-icon="play" aria-hidden="true"></span>
+              <span class="button__label">Play</span>
+            </button>
+            <button id="game-details-favorite" class="button" data-action="toggle-favorite" data-role="details-favorite" type="button" aria-pressed="false">
+              <span class="icon" data-icon="heart" aria-hidden="true"></span>
+            </button>
+            <button id="game-details-more" class="button" data-action="game-more-options" data-role="details-more" type="button" aria-haspopup="menu" aria-expanded="false">
+              <span class="icon" data-icon="more" aria-hidden="true"></span>
+            </button>
+          </div>
+
+          <div class="game-details__tabs" data-section="details-tabs" role="tablist" aria-label="Game details sections">
+            <button class="tab" data-tab="overview" role="tab" aria-selected="true" type="button">Overview</button>
+            <button class="tab" data-tab="trophies" role="tab" aria-selected="false" type="button">Trophies</button>
+            <button class="tab" data-tab="activity" role="tab" aria-selected="false" type="button">Activity</button>
+          </div>
+
+          <div class="game-details__panels" data-section="details-panels">
+            <div id="details-panel-overview" class="tab-panel" data-panel="details-overview" data-source="games.json" role="tabpanel"></div>
+            <div id="details-panel-trophies" class="tab-panel is-hidden" data-panel="details-trophies" data-source="trophies.json" role="tabpanel"></div>
+            <div id="details-panel-activity" class="tab-panel is-hidden" data-panel="details-activity" role="tabpanel"></div>
+          </div>
+        </section>
+
+        <!-- Search Screen -->
+        <section id="search-screen" class="screen search-screen is-hidden" data-screen="search" data-view="search" aria-labelledby="search-screen-title" aria-hidden="true">
+          <header class="screen__header">
+            <h1 id="search-screen-title" class="screen__title">Search</h1>
+          </header>
+          <div class="search-screen__input-wrapper" data-section="search-input">
+            <span class="icon" data-icon="search" aria-hidden="true"></span>
+            <input id="search-input" class="search-screen__input" type="search" data-role="search-input" placeholder="Search games, apps, and store" autocomplete="off" aria-label="Search input">
+            <button id="search-clear" class="search-screen__clear is-hidden" data-action="clear-search" data-role="search-clear" type="button" aria-label="Clear search">
+              <span class="icon" data-icon="close" aria-hidden="true"></span>
+            </button>
+          </div>
+          <div id="search-results" class="search-screen__results" data-container="search-results" data-view="list" role="list" aria-live="polite"></div>
+          <div id="search-empty" class="empty-state is-hidden" data-role="search-empty" aria-hidden="true"></div>
+        </section>
+
+        <!-- Settings Screen -->
+        <section id="settings-screen" class="screen settings-screen is-hidden" data-screen="settings" data-view="settings" aria-labelledby="settings-screen-title" aria-hidden="true">
+          <header class="screen__header">
+            <h1 id="settings-screen-title" class="screen__title">Settings</h1>
+          </header>
+          <div class="settings-screen__layout" data-section="settings-layout">
+            <aside class="settings-screen__sidebar" data-section="settings-sidebar">
+              <nav id="settings-nav" class="settings-screen__nav" data-role="settings-nav" data-source="settings.json" aria-label="Settings categories"></nav>
+            </aside>
+            <div id="settings-panel" class="settings-screen__panel" data-container="settings-panel" data-source="settings.json" data-role="settings-panel"></div>
+          </div>
+        </section>
+
+      </main>
+
+      <!-- ---------- SYSTEM STATUS ---------- -->
+      <footer id="system-status" class="system-status" data-section="system-status" data-role="system-status" aria-live="polite">
+        <div class="system-status__left" data-section="system-status-left">
+          <span class="system-status__item" data-role="status-time" data-icon="clock"></span>
+          <span class="system-status__item" data-role="status-user" data-icon="user"></span>
+        </div>
+        <div class="system-status__right" data-section="system-status-right">
+          <span class="system-status__item" data-role="status-connection" data-icon="wifi"></span>
+          <span class="system-status__item" data-role="status-battery" data-icon="battery"></span>
+          <span class="system-status__item" data-role="status-storage" data-icon="storage"></span>
+        </div>
+      </footer>
+
+    </div>
+
+    <!-- ==================== CONTROL CENTER ==================== -->
+    <aside id="control-center" class="control-center is-hidden" data-panel="control-center" data-role="control-center" aria-hidden="true" aria-label="Control Center">
+      <div class="control-center__backdrop" data-action="close-control-center" aria-hidden="true"></div>
+      <div class="control-center__panel" data-section="control-center-panel" role="dialog" aria-modal="true" aria-labelledby="control-center-title">
+        <header class="control-center__header">
+          <h2 id="control-center-title" class="control-center__title">Control Center</h2>
+          <button class="control-center__close" data-action="close-control-center" type="button" aria-label="Close control center">
+            <span class="icon" data-icon="close" aria-hidden="true"></span>
+          </button>
+        </header>
+
+        <div class="control-center__quick-actions" data-section="control-center-quick-actions" role="group" aria-label="Quick actions">
+          <button class="control-tile" data-action="open-quick-settings" data-role="quick-settings-tile" type="button">
+            <span class="icon" data-icon="settings" aria-hidden="true"></span>
+            <span class="control-tile__label">Quick Settings</span>
+          </button>
+          <button class="control-tile" data-action="open-profile-menu" data-role="profile-tile" type="button">
+            <span class="icon" data-icon="user" aria-hidden="true"></span>
+            <span class="control-tile__label">Profile</span>
+          </button>
+          <button class="control-tile" data-action="open-notifications" data-role="notifications-tile" type="button">
+            <span class="icon" data-icon="bell" aria-hidden="true"></span>
+            <span class="control-tile__label">Notifications</span>
+          </button>
+          <button class="control-tile" data-action="open-music" data-role="music-tile" type="button">
+            <span class="icon" data-icon="music" aria-hidden="true"></span>
+            <span class="control-tile__label">Music</span>
+          </button>
+        </div>
+
+        <div id="control-center-quick-settings" class="control-center__quick-settings" data-container="control-center-quick-settings" data-view="quick-settings"></div>
+
+        <div class="control-center__footer" data-section="control-center-footer">
+          <button class="control-tile control-tile--power" data-action="open-power-menu" data-role="power-tile" type="button">
+            <span class="icon" data-icon="power" aria-hidden="true"></span>
+            <span class="control-tile__label">Power</span>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ==================== QUICK SETTINGS ==================== -->
+    <aside id="quick-settings" class="quick-settings is-hidden" data-panel="quick-settings" data-role="quick-settings" aria-hidden="true" aria-label="Quick Settings">
+      <div class="quick-settings__backdrop" data-action="close-quick-settings" aria-hidden="true"></div>
+      <div class="quick-settings__panel" data-section="quick-settings-panel" role="dialog" aria-modal="true" aria-labelledby="quick-settings-title">
+        <header class="quick-settings__header">
+          <h2 id="quick-settings-title" class="quick-settings__title">Quick Settings</h2>
+          <button class="quick-settings__close" data-action="close-quick-settings" type="button" aria-label="Close quick settings">
+            <span class="icon" data-icon="close" aria-hidden="true"></span>
+          </button>
+        </header>
+        <div id="quick-settings-content" class="quick-settings__content" data-container="quick-settings-content" data-source="settings.json"></div>
+      </div>
+    </aside>
+
+    <!-- ==================== PROFILE MENU ==================== -->
+    <aside id="profile-menu" class="profile-menu is-hidden" data-panel="profile-menu" data-role="profile-menu" aria-hidden="true" aria-label="Profile menu">
+      <div class="profile-menu__backdrop" data-action="close-profile-menu" aria-hidden="true"></div>
+      <div class="profile-menu__panel" data-section="profile-menu-panel" role="menu" aria-labelledby="profile-menu-title">
+        <header class="profile-menu__header">
+          <span class="avatar avatar--lg" data-role="profile-avatar" data-avatar="current-user" aria-hidden="true"></span>
+          <div class="profile-menu__identity">
+            <h2 id="profile-menu-title" class="profile-menu__name" data-role="profile-name">Player</h2>
+            <span class="profile-menu__status" data-role="profile-status" data-icon="status"></span>
+          </div>
+        </header>
+        <div id="profile-menu-items" class="profile-menu__items" data-container="profile-menu-items" data-source="profiles.json" role="none"></div>
+      </div>
+    </aside>
+
+    <!-- ==================== NOTIFICATIONS LAYER ==================== -->
+    <aside id="notifications-layer" class="notifications-layer is-hidden" data-panel="notifications" data-role="notifications-layer" aria-hidden="true" aria-label="Notifications">
+      <div class="notifications-layer__backdrop" data-action="close-notifications" aria-hidden="true"></div>
+      <div class="notifications-layer__panel" data-section="notifications-panel" role="dialog" aria-modal="true" aria-labelledby="notifications-title">
+        <header class="notifications-layer__header">
+          <h2 id="notifications-title" class="notifications-layer__title">Notifications</h2>
+          <button class="notifications-layer__close" data-action="close-notifications" type="button" aria-label="Close notifications">
+            <span class="icon" data-icon="close" aria-hidden="true"></span>
+          </button>
+        </header>
+        <div id="notifications-list" class="notifications-layer__list" data-container="notifications-list" data-view="list" role="list" aria-live="polite"></div>
+        <div id="notifications-empty" class="empty-state is-hidden" data-role="notifications-empty" aria-hidden="true"></div>
+      </div>
+    </aside>
+
+    <!-- ==================== MODAL / DIALOG LAYER ==================== -->
+    <div id="modal-layer" class="modal-layer is-hidden" data-panel="modal" data-role="modal-layer" aria-hidden="true">
+      <div class="modal-layer__backdrop" data-action="close-modal" aria-hidden="true"></div>
+      <div id="modal-container" class="modal-layer__container" data-container="modal-container" role="dialog" aria-modal="true"></div>
+    </div>
+
+    <!-- ==================== POWER MENU ==================== -->
+    <div id="power-menu" class="power-menu is-hidden" data-panel="power" data-role="power-menu" aria-hidden="true">
+      <div class="power-menu__backdrop" data-action="close-power-menu" aria-hidden="true"></div>
+      <div class="power-menu__panel" data-section="power-menu-panel" role="menu" aria-labelledby="power-menu-title">
+        <h2 id="power-menu-title" class="sr-only">Power Options</h2>
+        <ul class="power-menu__list" role="none">
+          <li role="none">
+            <button class="power-menu__item" data-action="power-rest-mode" type="button" role="menuitem">
+              <span class="icon" data-icon="rest-mode" aria-hidden="true"></span>
+              <span>Rest Mode</span>
+            </button>
+          </li>
+          <li role="none">
+            <button class="power-menu__item" data-action="power-turn-off" type="button" role="menuitem">
+              <span class="icon" data-icon="power" aria-hidden="true"></span>
+              <span>Turn Off PS5</span>
+            </button>
+          </li>
+          <li role="none">
+            <button class="power-menu__item" data-action="power-restart" type="button" role="menuitem">
+              <span class="icon" data-icon="restart" aria-hidden="true"></span>
+              <span>Restart PS5</span>
+            </button>
+          </li>
+          <li role="none">
+            <button class="power-menu__item" data-action="power-log-out" type="button" role="menuitem">
+              <span class="icon" data-icon="logout" aria-hidden="true"></span>
+              <span>Log Out</span>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ==================== TOAST / NOTIFICATION LAYER ==================== -->
+    <div id="toast-layer" class="toast-layer" data-role="toast-layer" aria-live="polite" aria-atomic="false"></div>
+
+    <!-- ==================== LOADING LAYER ==================== -->
+    <div id="loading-layer" class="loading-layer is-hidden" data-role="loading-layer" aria-hidden="true" aria-live="polite">
+      <div class="loading-layer__spinner" data-role="loading-spinner" aria-hidden="true"></div>
+      <p id="loading-message" class="loading-layer__message" data-role="loading-message"></p>
+    </div>
+
+    <!-- ==================== ERROR LAYER ==================== -->
+    <div id="error-layer" class="error-layer is-hidden" data-role="error-layer" aria-hidden="true" role="alert">
+      <div class="error-layer__content">
+        <span class="icon error-layer__icon" data-icon="error" aria-hidden="true"></span>
+        <h2 id="error-title" class="error-layer__title" data-role="error-title">Something went wrong</h2>
+        <p id="error-message" class="error-layer__message" data-role="error-message"></p>
+        <div class="error-layer__actions">
+          <button class="button" data-action="error-dismiss" data-role="error-dismiss" type="button">Dismiss</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== GAME LAUNCHER LAYER ==================== -->
+    <div id="game-launcher-layer" class="game-launcher-layer is-hidden" data-panel="game-launcher" data-role="game-launcher-layer" aria-hidden="true">
+      <div class="game-launcher-layer__container" data-container="game-launcher-container"></div>
+      <div class="game-launcher-layer__controls" data-role="game-launcher-controls">
+        <button class="button" data-action="game-exit" data-role="game-exit" type="button" aria-label="Exit game">
+          <span class="icon" data-icon="close" aria-hidden="true"></span>
+          <span class="button__label">Exit</span>
+        </button>
+        <button class="button" data-action="game-pause" data-role="game-pause" type="button" aria-label="Pause game">
+          <span class="icon" data-icon="pause" aria-hidden="true"></span>
+        </button>
+        <button class="button" data-action="game-fullscreen" data-role="game-fullscreen" type="button" aria-label="Toggle fullscreen">
+          <span class="icon" data-icon="fullscreen" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ==================== EXTERNAL GAMES CONTAINER ==================== -->
+    <div id="external-games-layer" class="external-games-layer is-hidden" data-panel="external-games" data-role="external-games-layer" aria-hidden="true">
+      <div class="external-games-layer__container" data-container="external-games-container" data-source="../external-games/games.json"></div>
+    </div>
+
+    <!-- ==================== GLOBAL OVERLAY ==================== -->
+    <div id="global-overlay" class="global-overlay is-hidden" data-role="global-overlay" aria-hidden="true"></div>
+
+    <!-- ==================== SCREEN READER ANNOUNCER ==================== -->
+    <div id="sr-announcer" class="sr-only" data-role="sr-announcer" aria-live="polite" aria-atomic="true"></div>
+
+  </div>
+
+  <!-- ==================== APP ENTRY ==================== -->
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

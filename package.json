@@ -1,0 +1,19 @@
+{
+  "name": "ps5-pro",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Independent web-based PS5 Pro style console interface prototype built with vanilla HTML, CSS, and JavaScript.",
+  "type": "module",
+  "scripts": {
+    "start": "serve -l 3000 .",
+    "dev": "serve -l 3000 .",
+    "build": "echo \"No build step required: vanilla HTML/CSS/JS project\"",
+    "preview": "serve -l 4173 ."
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "devDependencies": {
+    "serve": "^14.2.1"
+  }
+}
